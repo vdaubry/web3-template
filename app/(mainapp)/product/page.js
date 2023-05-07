@@ -4,6 +4,7 @@ import AppHeader from "./AppHeader";
 import { useNotification } from "web3uikit";
 import { useEffect, useState } from "react";
 import ClientOnly from "../../clientOnly";
+import { truncatedAmount } from "../../../utils/format";
 
 import {
   useNetwork,
@@ -31,7 +32,7 @@ export default function App() {
     isError,
     isLoading,
   } = useBalance({
-    address: "0xA0Cf798816D4b9b9866b5330EEa46a18382f251e",
+    address: account,
   });
 
   /**************************************
@@ -57,7 +58,8 @@ export default function App() {
                 <div className="animate-spin spinner-border h-8 w-8 border-b-2 rounded-full"></div>
               )}
               <p>
-                Your ETH balance is: {balance?.formatted} {balance?.symbol}
+                Your ETH balance is: {truncatedAmount(balance?.value)}{" "}
+                {balance?.symbol}
               </p>
             </div>
           </div>
