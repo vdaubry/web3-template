@@ -30,7 +30,7 @@ export default function LandingHeader() {
       >
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
-            <h2 className="text-2xl">MiniVesting</h2>
+            <h2 className="text-2xl">AppName</h2>
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -55,7 +55,7 @@ export default function LandingHeader() {
           </a>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link href="/app">
+          <Link href="/product">
             <button
               type="button"
               className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
@@ -118,7 +118,7 @@ export default function LandingHeader() {
               </div>
               <div className="py-6">
                 <a
-                  href="/app"
+                  href="/product"
                   className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   <button

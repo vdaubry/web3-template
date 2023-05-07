@@ -9,7 +9,7 @@ export default function AppHeader() {
       >
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
-            <h2 className="text-2xl">MiniVesting</h2>
+            <h2 className="text-2xl">AppName</h2>
           </a>
         </div>
 

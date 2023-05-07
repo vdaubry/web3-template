@@ -7,7 +7,7 @@ const chains = [polygon, goerli, hardhat, mainnet, arbitrum];
 export const client = createClient(
   getDefaultClient({
     autoConnect: true,
-    appName: "MiniVesting",
+    appName: "AppName",
     chains,
   })
 );
