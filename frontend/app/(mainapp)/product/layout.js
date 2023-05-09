@@ -5,7 +5,7 @@ import { NotificationProvider } from "web3uikit";
 import { WagmiConfig } from "wagmi";
 import { client } from "../../../utils/wagmi";
 import { Inter } from "next/font/google";
-import "../../globals.css";
+import "../../../styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
