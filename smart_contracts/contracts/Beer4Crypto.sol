@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "hardhat/console.sol";
 
 contract Beer4Crypto {
@@ -10,7 +9,7 @@ contract Beer4Crypto {
         uint256 closingDate;
         uint256 deposit;
         bool ended;
-        bytes32 groupId;
+        bytes32 groupid;
     }
 
     struct Group {
@@ -19,17 +18,19 @@ contract Beer4Crypto {
     }
 
     struct Member {
-        address member;
+        address memberAddress;
         string nickname;
     }
 
-    mapping(bytes32 => Group) private groups;
-    mapping(bytes32 => mapping(address => bool)) private groupMembers;
+    mapping(bytes32 => Member[]) private groupMembers;
     mapping(address => Group[]) private memberGroups;
 
     event GroupCreated(string name, bytes32 id);
 
-    function createGroup(string memory groupName) public {
+    function createGroup(
+        string memory groupName,
+        string memory nickname
+    ) public {
         bytes32 groupId = keccak256(
             abi.encodePacked(
                 groupName,
@@ -37,30 +38,39 @@ contract Beer4Crypto {
                 blockhash(block.number)
             )
         );
-        Group storage group = groups[groupId];
+        Group memory group = Group(groupId, groupName);
+        Member memory member = Member(msg.sender, nickname);
 
-        group.id = groupId;
-        group.name = groupName;
-        groupMembers[groupId][msg.sender] = true;
-        memberGroups[msg.sender].push(Group(groupId, groupName));
+        memberGroups[msg.sender].push(group);
+        groupMembers[groupId].push(member);
 
         emit GroupCreated(groupName, groupId);
-    }
-
-    function getGroup(bytes32 groupId) public view returns (Group memory) {
-        return groups[groupId];
     }
 
     function isMember(
         bytes32 groupId,
         address member
     ) public view returns (bool) {
-        return groupMembers[groupId][member];
+        Member[] memory members = groupMembers[groupId];
+
+        for (uint256 i = 0; i < members.length; i++) {
+            if (members[i].memberAddress == member) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     function listGroupsForMember(
         address member
     ) public view returns (Group[] memory) {
         return memberGroups[member];
+    }
+
+    function listMembersForGroup(
+        bytes32 id
+    ) public view returns (Member[] memory) {
+        return groupMembers[id];
     }
 }

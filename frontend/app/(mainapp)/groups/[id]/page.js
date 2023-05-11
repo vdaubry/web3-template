@@ -1,10 +1,12 @@
 import React from "react";
+import MemberList from "@/components/MemberList";
+import ClientOnly from "@/utils/clientOnly";
 
 const Page = ({ params }) => {
   return (
-    <div>
-      <h1>group ID : {params.id}</h1>
-    </div>
+    <ClientOnly>
+      <MemberList groupId={params.id} />;
+    </ClientOnly>
   );
 };
 

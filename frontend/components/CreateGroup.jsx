@@ -20,6 +20,7 @@ const CreateGroup = () => {
   const { chain } = useNetwork();
   const { address: account } = useAccount();
   const [groupName, setGroupName] = useState("");
+  const [nickname, setNickname] = useState("");
 
   let contractAddress;
 
@@ -32,7 +33,7 @@ const CreateGroup = () => {
     address: contractAddress,
     abi: contractAbi,
     functionName: "createGroup",
-    args: [groupName],
+    args: [groupName, nickname],
   });
 
   const { data, write: createGroup } = useContractWrite({
@@ -74,10 +75,19 @@ const CreateGroup = () => {
             <input
               id="groupName"
               type="text"
-              placeholder="groupName"
+              placeholder="your group name"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={(event) => {
                 setGroupName(event.target.value);
+              }}
+            />
+            <input
+              id="nickname"
+              type="text"
+              placeholder="your nickname"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-3"
+              onChange={(event) => {
+                setNickname(event.target.value);
               }}
             />
           </div>

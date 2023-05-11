@@ -19,8 +19,6 @@ module.exports = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 200,
-            details: { yul: false },
           },
         },
       },
@@ -30,10 +28,6 @@ module.exports = {
   networks: {
     hardhat: {
       chainId: 31337,
-      allowUnlimitedContractSize: true,
-      gas: 12000000,
-      blockGasLimit: 0x1fffffffffffff,
-      ignoreUnknownTxType: true,
       // forking: {
       //   url: MAINNET_RPC_URL,
       //   blockNumber: 16232680,
@@ -42,11 +36,6 @@ module.exports = {
     localhost: {
       url: "http://127.0.0.1:8545/",
       chainId: 31337,
-      allowUnlimitedContractSize: true,
-      timeout: 200000,
-      gas: 12000000,
-      blockGasLimit: 0x1fffffffffffff,
-      ignoreUnknownTxType: true,
     },
     goerli: {
       url: GOERLI_RPC_URL,
