@@ -37,15 +37,25 @@ if (!developmentChains.includes(network.name)) {
         expect(event?.args?.id).to.exist;
       });
 
+      it("should allow group with existing name", async function () {
+        const groupName = "My Group";
+        await beer4crypto.createGroup(groupName);
+        await expect(beer4crypto.createGroup(groupName)).to.not.be.reverted;
+      });
+    });
+
+    describe("getGroup", function () {
       it("should set the group name", async function () {
         const groupName = "Test Group";
         const tx = await beer4crypto.createGroup(groupName);
         const groupId = await getGroupIdFromTx(tx);
 
-        const actualGroupName = await beer4crypto.getGroupName(groupId);
-        expect(actualGroupName).to.equal(groupName);
+        const group = await beer4crypto.getGroup(groupId);
+        expect(group.name).to.equal(groupName);
       });
+    });
 
+    describe("isMember", function () {
       it("should add the creator to the group members", async function () {
         const groupName = "Test Group";
         const tx = await beer4crypto.createGroup(groupName);
@@ -54,11 +64,17 @@ if (!developmentChains.includes(network.name)) {
         const isMember = await beer4crypto.isMember(groupId, deployer);
         expect(isMember).to.equal(true);
       });
+    });
 
-      it("should allow group with existing name", async function () {
-        const groupName = "My Group";
-        await beer4crypto.createGroup(groupName);
-        await expect(beer4crypto.createGroup(groupName)).to.not.be.reverted;
+    describe("ListGroupsForMember", function () {
+      it("should return the group ids", async function () {
+        const groupName = "Test Group";
+        const tx = await beer4crypto.createGroup(groupName);
+        const groupId = await getGroupIdFromTx(tx);
+
+        const groupIds = await beer4crypto.listGroupsForMember(deployer);
+        expect(groupIds[0].id).to.equal(groupId);
+        expect(groupIds[0].name).to.equal(groupName);
       });
     });
   });
