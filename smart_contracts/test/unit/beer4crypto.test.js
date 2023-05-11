@@ -81,5 +81,55 @@ if (!developmentChains.includes(network.name)) {
         expect(members[0].nickname).to.equal("DeployerNickname");
       });
     });
+
+    describe("InviteMember", function () {
+      it("should add the invited member to the group", async function () {
+        const groupId = await createGroup("MyGroup", "DeployerNickname");
+        const invited = await ethers.getSigner(1);
+        const invitedAddress = await invited.getAddress();
+
+        await beer4crypto.inviteMember(
+          invitedAddress,
+          "User Nickname",
+          groupId
+        );
+
+        const groupMembers = await beer4crypto.listMembersForGroup(groupId);
+        expect(groupMembers[0].memberAddress).to.equal(deployer);
+        expect(groupMembers[1].memberAddress).to.equal(invitedAddress);
+      });
+
+      it("should emit MemberInvited event", async function () {
+        const groupId = await createGroup("MyGroup", "DeployerNickname");
+        const invited = await ethers.getSigner(1);
+        const invitedAddress = await invited.getAddress();
+
+        const tx = await beer4crypto.inviteMember(
+          invitedAddress,
+          "User Nickname",
+          groupId
+        );
+        const receipt = await tx.wait();
+        const event = receipt.events?.find(
+          (event) => event.event === "MemberInvited"
+        );
+
+        expect(event?.args?.groupId).to.equal(groupId);
+        expect(event?.args?.memberAddress).to.equal(invitedAddress);
+        expect(event?.args?.nickname).to.equal("User Nickname");
+      });
+
+      it("should not allow non-members to invite", async function () {
+        const groupId = await createGroup("MyGroup", "DeployerNickname");
+        const invited = await ethers.getSigner(1);
+        const invitedAddress = await invited.getAddress();
+
+        await expect(
+          beer4crypto
+            .connect(invited)
+            .inviteMember(invitedAddress, "User Nickname", groupId)
+        ).to.be.revertedWith("Only members can call this function");
+      });
+    });
   });
 }

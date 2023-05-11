@@ -26,6 +26,19 @@ contract Beer4Crypto {
     mapping(address => Group[]) private memberGroups;
 
     event GroupCreated(string name, bytes32 id);
+    event MemberInvited(
+        bytes32 groupId,
+        address memberAddress,
+        string nickname
+    );
+
+    modifier onlyMember(bytes32 groupId) {
+        require(
+            isMember(groupId, msg.sender),
+            "Only members can call this function"
+        );
+        _;
+    }
 
     function createGroup(
         string memory groupName,
@@ -72,5 +85,16 @@ contract Beer4Crypto {
         bytes32 id
     ) public view returns (Member[] memory) {
         return groupMembers[id];
+    }
+
+    function inviteMember(
+        address memberAddress,
+        string memory memberNickname,
+        bytes32 groupId
+    ) public onlyMember(groupId) {
+        Member memory member = Member(memberAddress, memberNickname);
+        groupMembers[groupId].push(member);
+
+        emit MemberInvited(groupId, memberAddress, memberNickname);
     }
 }
