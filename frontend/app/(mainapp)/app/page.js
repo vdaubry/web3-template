@@ -1,6 +1,5 @@
 "use client";
 
-import AppHeader from "./AppHeader";
 import { useEffect, useState } from "react";
 import ClientOnly from "@/utils/clientOnly";
 import CreateGroup from "@/components/CreateGroup";
@@ -23,7 +22,6 @@ export default function App() {
   if (!hasMounted) return null;
   return (
     <ClientOnly>
-      <AppHeader />
       <GroupList />
       <CreateGroup />
       <Balance />

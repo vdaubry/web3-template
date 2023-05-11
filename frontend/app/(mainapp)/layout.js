@@ -3,6 +3,7 @@
 import { ConnectKitProvider } from "connectkit";
 import { WagmiConfig } from "wagmi";
 import { client } from "@/utils/wagmi";
+import AppHeader from "@/components/AppHeader";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +18,7 @@ export default function AppLayout({ children }) {
       <body className={inter.className}>
         <WagmiConfig client={client}>
           <ConnectKitProvider>
+            <AppHeader />
             {children}
             <ToastContainer />
           </ConnectKitProvider>

@@ -27,5 +27,11 @@
     ]
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/app/(mainapp)/layout.js"
+  ]
 }

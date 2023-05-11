@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { useState } from "react";
 import { contractAddresses, contractAbi } from "@/constants/index";
 import { useNetwork, useAccount, useContractRead } from "wagmi";
@@ -29,7 +30,7 @@ const GroupList = () => {
             <h2 className="block text-gray-700 text-2xl font-bold mb-2">
               Your groups
             </h2>
-            <div className="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25">
+            <div className="relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25">
               <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,#fff,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25 dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]"></div>
               <div className="relative rounded-xl overflow-auto">
                 <div className="shadow-sm overflow-hidden my-8">
@@ -45,7 +46,9 @@ const GroupList = () => {
                       {groupList?.map((group, i) => (
                         <tr key={i}>
                           <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                            {group.name}
+                            <Link href={`/groups/${group.id}`}>
+                              {group.name}
+                            </Link>
                           </td>
                         </tr>
                       ))}
