@@ -10,6 +10,7 @@ contract Beer4Crypto {
         uint256 closingDate;
         uint256 deposit;
         bool ended;
+        bytes32 groupId;
     }
 
     struct Group {

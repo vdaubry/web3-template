@@ -26,15 +26,34 @@ const GroupList = () => {
       <div className="max-w-md w-full my-4 ">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8">
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Group List
-            </label>
-            <div className="flex flex-col">
-              {groupList?.map((group, i) => (
-                <div className="flex flex-row" key={i}>
-                  <div className="flex flex-col">{group.id}</div>
+            <h2 className="block text-gray-700 text-2xl font-bold mb-2">
+              Your groups
+            </h2>
+            <div className="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25">
+              <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,#fff,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25 dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]"></div>
+              <div className="relative rounded-xl overflow-auto">
+                <div className="shadow-sm overflow-hidden my-8">
+                  <table className="border-collapse table-auto w-full text-sm">
+                    <thead>
+                      <tr>
+                        <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                          Name
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white dark:bg-slate-800">
+                      {groupList?.map((group, i) => (
+                        <tr key={i}>
+                          <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                            {group.name}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              ))}
+              </div>
+              <div className="absolute inset-0 pointer-events-none border border-black/5 rounded-xl dark:border-white/5"></div>
             </div>
           </div>
         </div>
