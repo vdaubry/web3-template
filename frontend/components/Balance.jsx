@@ -10,7 +10,7 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 
-import { truncatedAmount } from "../utils/format";
+import { truncatedAmount } from "@/utils/format";
 
 const Balance = () => {
   const { chain } = useNetwork();

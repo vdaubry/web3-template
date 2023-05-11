@@ -1,5 +1,5 @@
 import LandingHeader from "./LandingHeader";
-import "../globals.css";
+import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 import Head from "next/head";
 

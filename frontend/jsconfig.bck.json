@@ -4,6 +4,9 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@/utils/*": ["utils/*"]
-    }
-  }
+    },
+    "allowJs": true,
+    "jsx": "preserve"
+  },
+  "exclude": ["node_modules"]
 }

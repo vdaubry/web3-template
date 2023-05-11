@@ -2,11 +2,11 @@
 
 import { ConnectKitProvider } from "connectkit";
 import { WagmiConfig } from "wagmi";
-import { client } from "../../../utils/wagmi";
+import { client } from "@/utils/wagmi";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../globals.css";
+import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
