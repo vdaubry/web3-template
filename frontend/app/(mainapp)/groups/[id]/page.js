@@ -7,7 +7,7 @@ const Page = ({ params }) => {
   return (
     <ClientOnly>
       <MemberList groupId={params.id} />;
-      <InviteMember />;
+      <InviteMember groupId={params.id} />;
     </ClientOnly>
   );
 };

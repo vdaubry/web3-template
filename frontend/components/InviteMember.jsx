@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useState } from "react";
 import { FaInstagram } from "react-icons/fa";
@@ -16,7 +18,7 @@ import {
   handleSuccessNotification,
 } from "@/utils/notifications";
 
-const InviteMember = () => {
+const InviteMember = (groupId) => {
   const { chain } = useNetwork();
   const { address: account } = useAccount();
   const [memberAddress, setMemberAddress] = useState("");
@@ -29,11 +31,14 @@ const InviteMember = () => {
     contractAddress = contractAddresses[chainId]["contract"];
   }
 
+  console.log("contractAddress", contractAddress);
+  console.log("groupId", groupId.groupId);
+
   const { config } = usePrepareContractWrite({
     address: contractAddress,
     abi: contractAbi,
     functionName: "inviteMember",
-    args: [groupName, nickname],
+    args: [memberAddress, memberNickname, groupId.groupId],
   });
 
   const { data, write: inviteMember } = useContractWrite({
@@ -63,7 +68,7 @@ const InviteMember = () => {
 
   return (
     <div className="flex items-center justify-center w-full h-full bg-gradient-to-r from-red-100 via-white to-red-100">
-      <div className="max-w-md w-full my-4 ">
+      <div className="max-w-2xl w-full my-4 ">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8">
           <div className="mb-4">
             <h2
@@ -95,12 +100,12 @@ const InviteMember = () => {
             <button
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              disabled={!createGroup || !groupName}
+              disabled={!inviteMember || !memberAddress || !memberAddress}
               onClick={() => {
-                createGroup?.();
+                inviteMember?.();
               }}
             >
-              Create Group
+              Invite new member
             </button>
           </div>
         </div>
