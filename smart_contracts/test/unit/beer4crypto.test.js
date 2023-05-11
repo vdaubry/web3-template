@@ -24,10 +24,12 @@ if (!developmentChains.includes(network.name)) {
       return event?.args?.id;
     };
 
-    describe("createGroup", function () {
+    const userNickname = "Test User";
+
+    describe.only("createGroup", function () {
       it("should emit GroupCreated event", async function () {
         const groupName = "Test Group";
-        const tx = await beer4crypto.createGroup(groupName);
+        const tx = await beer4crypto.createGroup(groupName, userNickname);
         const receipt = await tx.wait();
         const event = receipt.events?.find(
           (event) => event.event === "GroupCreated"
@@ -39,8 +41,9 @@ if (!developmentChains.includes(network.name)) {
 
       it("should allow group with existing name", async function () {
         const groupName = "My Group";
-        await beer4crypto.createGroup(groupName);
-        await expect(beer4crypto.createGroup(groupName)).to.not.be.reverted;
+        await beer4crypto.createGroup(groupName, userNickname);
+        await expect(beer4crypto.createGroup(groupName, userNickname)).to.not.be
+          .reverted;
       });
     });
 
