@@ -1,11 +1,17 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { FaInstagram } from "react-icons/fa";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ethers } from "ethers";
 import { contractAddresses, contractAbi } from "@/constants/index";
 import {
   useNetwork,
   useAccount,
-  useContractRead,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
@@ -16,11 +22,20 @@ import {
   handleSuccessNotification,
 } from "@/utils/notifications";
 
-const CreateGroup = () => {
+const CreateEvent = (groupId) => {
+  const computeMaxBetDate = (days) => {
+    const date = new Date();
+    date.setDate(date.getDate() - days);
+    setMaxBetDate(date);
+  };
+
   const { chain } = useNetwork();
   const { address: account } = useAccount();
-  const [groupName, setGroupName] = useState("");
-  const [nickname, setNickname] = useState("");
+  const [eventDate, setEventDate] = useState(new Date());
+  const [minDeposit, setMinDeposit] = useState(
+    ethers.utils.parseEther("0.0025")
+  ); //0.0025 ETH
+  const [maxBetDate, setMaxBetDate] = useState(0);
 
   let contractAddress;
 
@@ -32,11 +47,11 @@ const CreateGroup = () => {
   const { config } = usePrepareContractWrite({
     address: contractAddress,
     abi: contractAbi,
-    functionName: "createGroup",
-    args: [groupName, nickname],
+    functionName: "createEvent",
+    args: [eventDate, minDeposit, groupId, maxBetDate],
   });
 
-  const { data, write: createGroup } = useContractWrite({
+  const { data, write: createEvent } = useContractWrite({
     ...config,
     onError(error) {
       handleFailureNotification(error.message);
@@ -46,7 +61,7 @@ const CreateGroup = () => {
   useContractEvent({
     address: contractAddress,
     abi: contractAbi,
-    eventName: "GroupCreated",
+    eventName: "EventCreated",
     listener(log) {},
   });
 
@@ -61,43 +76,41 @@ const CreateGroup = () => {
     },
   });
 
+  useEffect(() => {
+    computeMaxBetDate(1);
+  }, []);
+
   return (
     <div className="flex items-center justify-center w-full h-full bg-gradient-to-r from-red-100 via-white to-red-100">
-      <div className="max-w-md w-full my-4 ">
+      <div className="max-w-2xl w-full my-4 ">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8">
           <div className="mb-4">
             <h2 className="block text-gray-700 text-2xl font-bold mb-2">
-              Add a new group
+              Schedule a new event
             </h2>
-            <input
-              id="groupName"
-              type="text"
-              placeholder="your group name"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              onChange={(event) => {
-                setGroupName(event.target.value);
-              }}
+            <DatePicker
+              selected={eventDate}
+              onChange={(date) => setEventDate(date)}
             />
-            <input
-              id="nickname"
-              type="text"
-              placeholder="your nickname"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-3"
-              onChange={(event) => {
-                setNickname(event.target.value);
-              }}
-            />
+            <Listbox value={7} onChange={console.log("foo")}>
+              <Listbox.Button>Foo</Listbox.Button>
+              <Listbox.Options>
+                <Listbox.Option value={1}>1 day</Listbox.Option>
+                <Listbox.Option value={7}>1 week</Listbox.Option>
+                <Listbox.Option value={30}>1 month</Listbox.Option>
+              </Listbox.Options>
+            </Listbox>
           </div>
           <div className="flex items-center justify-between">
             <button
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              disabled={!createGroup || !groupName}
+              disabled={!createEvent || !eventDate}
               onClick={() => {
-                createGroup?.();
+                createEvent?.();
               }}
             >
-              Create Group
+              Create Event
             </button>
           </div>
         </div>
@@ -106,4 +119,4 @@ const CreateGroup = () => {
   );
 };
 
-export default CreateGroup;
+export default CreateEvent;
