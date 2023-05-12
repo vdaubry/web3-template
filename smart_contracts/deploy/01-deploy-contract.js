@@ -35,6 +35,7 @@ module.exports = async (hre) => {
     // gasPrice: ethers.utils.parseUnits("200", "gwei"),
     // gasLimit: 500000,
   });
+  const contract = await ethers.getContract(CONTRACT_NAME);
 
   log("---------------------------------");
   log(`Contract deployed with owner : ${deployer}`);
@@ -49,9 +50,9 @@ module.exports = async (hre) => {
     process.env.ETHERSCAN_API_KEY
   ) {
     log("Verifying...");
-    await verify(vestingToken.address, arguments);
+    await verify(contract.address, arguments);
   }
   log("----------------------------------------------------");
 };
 
-module.exports.tags = ["all", "vesting"];
+module.exports.tags = ["all", "contract"];

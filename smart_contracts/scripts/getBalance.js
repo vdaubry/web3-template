@@ -11,11 +11,11 @@ async function getBalance() {
 
   console.log(`Deployer: ${deployer}`);
 
-  const vestingToken = await ethers.getContract("Vesting", deployer);
+  const contract = await ethers.getContract("MyToken", deployer);
 
-  console.log(`Vesting token address: ${vestingToken.address}`);
+  console.log(`Contract address: ${vestingToken.address}`);
 
-  const balance = await vestingToken.balanceOf(deployer);
+  const balance = await contract.balanceOf(deployer);
   console.log(`Got ${balance.toString()} tokens`);
 }
 
