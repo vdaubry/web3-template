@@ -16,7 +16,7 @@ const Navbar = () => (
     <div className={`${styles.innerWidth} mx-auto flex justify-between gap-8`}>
       <div className="w-[24px] h-[24px] object-contain" />
       <h2 className="font-extrabold text-[24px] leading-[30.24px] text-white">
-        METAVERSUS
+        AppName
       </h2>
       <Link href="/product">
         <button

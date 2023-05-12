@@ -5,14 +5,16 @@ const { developmentChains } = require("../../helper-hardhat-config");
 if (!developmentChains.includes(network.name)) {
   describe.skip;
 } else {
-  describe("vesting", () => {
+  describe("Contract", () => {
     let deployer;
+
+    const CONTRACT_NAME = "MyToken";
 
     beforeEach(async () => {
       await deployments.fixture(["all"]);
       deployer = (await getNamedAccounts()).deployer;
 
-      vesting = await ethers.getContract("Vesting", deployer);
+      contract = await ethers.getContract(CONTRACT_NAME, deployer);
     });
 
     describe("constructor", async () => {
@@ -22,18 +24,18 @@ if (!developmentChains.includes(network.name)) {
       ); // 150 billion (18 decimals)
 
       it("should update total supply", async () => {
-        const totalSupply = await vesting.totalSupply();
+        const totalSupply = await contract.totalSupply();
         expect(totalSupply).to.equal(expectedTotalSupply);
       });
 
       it("should update name", async () => {
-        const name = await vesting.name();
-        expect(name).to.equal("My Vesting");
+        const name = await contract.name();
+        expect(name).to.equal("My Token");
       });
 
       it("should update symbol", async () => {
-        const symbol = await vesting.symbol();
-        expect(symbol).to.equal("VESTING");
+        const symbol = await contract.symbol();
+        expect(symbol).to.equal("MYT");
       });
     });
   });

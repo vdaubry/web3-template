@@ -20,30 +20,24 @@ module.exports = async (hre) => {
    ************************************/
 
   log("---------------------------------");
-  log(`Deploy Vesting with owner : ${deployer}`);
+  log(`Deploy contract with owner : ${deployer}`);
 
-  const deployerEthBalance = await ethers.provider.getBalance(deployer);
-  console.log(
-    `Deployer balance: ${ethers.utils.formatEther(deployerEthBalance)} ETH`
-  );
+  const CONTRACT_NAME = "MyToken";
 
   const tokenSupply = ethers.utils.parseUnits((150 * 10 ** 9).toString(), 18); // 150 billion (18 decimals)
   const arguments = [deployer, tokenSupply];
-  await deploy("Vesting", {
+  await deploy(CONTRACT_NAME, {
     from: deployer,
     args: arguments,
     log: true,
     waitConfirmations: waitBlockConfirmations,
-    gasPrice: ethers.utils.parseUnits("200", "gwei"), //adjust if ProviderError: transaction underpriced
-    gasLimit: 500000,
+    /* adjust if ProviderError: transaction underpriced */
+    // gasPrice: ethers.utils.parseUnits("200", "gwei"),
+    // gasLimit: 500000,
   });
 
   log("---------------------------------");
-  log(`Vesting token deployed with owner : ${deployer}`);
-
-  const vestingToken = await ethers.getContract("Vesting", deployer);
-  const vestingBalance = await vestingToken.balanceOf(deployer);
-  console.log(`Deployer Got ${vestingBalance.toString()} tokens`);
+  log(`Contract deployed with owner : ${deployer}`);
 
   /***********************************
    *

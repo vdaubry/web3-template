@@ -1,7 +1,6 @@
 "use client";
 
-import AppHeader from "./AppHeader";
-import { useNotification } from "web3uikit";
+import AppHeader from "../../../components/AppHeader";
 import { useEffect, useState } from "react";
 import ClientOnly from "../../clientOnly";
 import { truncatedAmount } from "../../../utils/format";
@@ -24,7 +23,6 @@ import {
 export default function App() {
   const { chain } = useNetwork();
   const { address: account } = useAccount();
-  const dispatch = useNotification();
   const [hasMounted, setHasMounted] = useState(false);
 
   const {

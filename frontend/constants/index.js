@@ -31,42 +31,40 @@ export const exploreWorlds = [
 ];
 
 export const startingFeatures = [
-  "Find a world that suits you and you want to enter",
-  "Enter the world by reading basmalah to be safe",
-  "No need to beat around the bush, just stay on the gas and have fun",
+  "Step 1 description",
+  "Step 2 description",
+  "Step 3 description",
 ];
 
 export const newFeatures = [
   {
     imgUrl: "/vrpano.svg",
-    title: "A new world",
-    subtitle:
-      "we have the latest update with new world for you to try never mind",
+    title: "Title1",
+    subtitle: "Some description1",
   },
   {
     imgUrl: "/headset.svg",
-    title: "More realistic",
-    subtitle:
-      "In the latest update, your eyes are narrow, making the world more realistic than ever",
+    title: "Title2",
+    subtitle: "Some description2",
   },
 ];
 
 export const insights = [
   {
     imgUrl: "/planet-06.png",
-    title: "The launch of the Metaverse makes Elon musk ketar-ketir",
+    title: "News1",
     subtitle:
       "Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Diam maecenas sed enim ut sem viverra alique.",
   },
   {
     imgUrl: "/planet-07.png",
-    title: "7 tips to easily master the madness of the Metaverse",
+    title: "News2",
     subtitle:
       "Vitae congue eu consequat ac felis donec. Et magnis dis parturient montes nascetur ridiculus mus. Convallis tellus id interdum",
   },
   {
     imgUrl: "/planet-08.png",
-    title: "With one platform you can explore the whole world virtually",
+    title: "News3",
     subtitle:
       "Quam quisque id diam vel quam elementum. Viverra nam libero justo laoreet sit amet cursus sit. Mauris in aliquam sem",
   },
