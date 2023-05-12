@@ -1,9 +1,9 @@
 "use client";
 
-import AppHeader from "../../../components/AppHeader";
+import AppHeader from "@/components/AppHeader";
 import { useEffect, useState } from "react";
-import ClientOnly from "../../clientOnly";
-import { truncatedAmount } from "../../../utils/format";
+import ClientOnly from "@/components/clientOnly";
+import { truncatedAmount } from "@/utils/format";
 
 import {
   useNetwork,
@@ -47,7 +47,6 @@ export default function App() {
   if (isError) return <div>Error fetching balance</div>;
   return (
     <ClientOnly>
-      <AppHeader />
       <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm">
           <div className="bg-gradient-to-br from-purple-600 to-blue-500 block max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-4">

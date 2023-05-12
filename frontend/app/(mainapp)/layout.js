@@ -2,9 +2,9 @@
 
 import { ConnectKitProvider } from "connectkit";
 import { WagmiConfig } from "wagmi";
-import { client } from "../../utils/wagmi";
+import { client } from "@/utils/wagmi";
 import { Inter } from "next/font/google";
-import "../../../styles/globals.css";
+import "@/styles/globals.css";
 import AppHeader from "@/components/AppHeader";
 
 const inter = Inter({ subsets: ["latin"] });
